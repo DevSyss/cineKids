@@ -1,15 +1,15 @@
-const LS_KEY = "dc_movies_v1";
-const LS_USER = "dc_user_v1";
+/* kidsstream - script.js */
+const LS_KEY = "ks_movies_v1";
+const LS_USER = "ks_user_v1";
 
 /* ---------- Dados iniciais (sample) ---------- */
 const sampleData = [
-  { id: id(), title: "Encanto", genres: ["Animação","Família"], img: "https://picsum.photos/seed/encanto/800/450", kids: true, featured:true },
-  { id: id(), title: "Avatar", genres: ["Aventura","Ficção"], img: "https://picsum.photos/seed/avatar/800/450", kids:false, featured:true },
-  { id: id(), title: "Carros", genres: ["Animação","Infantil"], img: "https://picsum.photos/seed/cars/800/450", kids:true },
-  { id: id(), title: "O Mundo dos Animais", genres:["Documentário","Natureza"], img:"https://picsum.photos/seed/nature/800/450", kids:true },
-  { id: id(), title: "Piratas do Caribe", genres:["Aventura","Ação"], img:"https://picsum.photos/seed/pirata/800/450", kids:false },
-  { id: id(), title: "Toy Story", genres:["Animação","Família"], img:"https://picsum.photos/seed/toystory/800/450", kids:true },
-  { id: id(), title: "Luca", genres:["Animação","Aventura"], img:"https://picsum.photos/seed/luca/800/450", kids:true }
+  { id: id(), title: "Encanto", genres: ["Animação","Família"], img: "https://picsum.photos/seed/encanto/1200/675", kids: true, featured:true },
+  { id: id(), title: "Toy Story", genres: ["Animação","Família"], img: "https://picsum.photos/seed/toystory/1200/675", kids:true, featured:true },
+  { id: id(), title: "Luca", genres: ["Animação","Aventura"], img: "https://picsum.photos/seed/luca/1200/675", kids:true },
+  { id: id(), title: "Planeta Azul", genres:["Documentário","Natureza"], img:"https://picsum.photos/seed/nature/1200/675", kids:true },
+  { id: id(), title: "Aventura no Espaço", genres:["Aventura","Ficção"], img:"https://picsum.photos/seed/space/1200/675", kids:false },
+  { id: id(), title: "Piratas", genres:["Aventura","Ação"], img:"https://picsum.photos/seed/pirata/1200/675", kids:false }
 ];
 
 /* ---------- Helpers ---------- */
@@ -70,7 +70,8 @@ function buildChips(){
   const allGenres = new Set();
   movies.forEach(m => m.genres.forEach(g => allGenres.add(g.trim())));
   genreChips.innerHTML = "";
-  ["Todos", ...Array.from(allGenres)].forEach(g => {
+  const genresArr = ["Todos", ...Array.from(allGenres)];
+  genresArr.forEach(g => {
     const el = document.createElement("button");
     el.className = "chip";
     el.textContent = g;
@@ -103,7 +104,7 @@ function attachEvents(){
   resetBtn.onclick = ()=> { if(confirm("Resetar dados para o exemplo?")) { localStorage.removeItem(LS_KEY); movies = loadMovies(); renderAll(); buildChips(); renderHero(); } }
 
   // modal close on backdrop click
-  document.querySelectorAll(".modal").forEach(m=>{
+  document.querySelectorAll(".ks-modal").forEach(m=>{
     m.addEventListener("click", (e)=> { if(e.target === m) m.classList.add("hidden") })
   });
 }
@@ -138,61 +139,60 @@ function renderAll(){
 function renderHero(){
   heroSlider.innerHTML = "";
   const featured = movies.filter(m=>m.featured).slice(0,4);
-  if(featured.length === 0) {
-    // fallback: randoms
-    featured.push(...movies.slice(0,3));
-  }
-  featured.forEach((f, i)=>{
+  const pool = featured.length ? featured : movies.slice(0,3);
+  // main big slide + side mini slides
+  pool.forEach((f, i)=>{
     const s = document.createElement("div");
-    s.className = "slide";
-    if(i===0) s.classList.add("show");
+    s.className = i === 0 ? "slide" : "slide small";
     s.style.backgroundImage = `url(${f.img})`;
-    // overlay text
-    s.innerHTML = `<div style="position:absolute;left:24px;bottom:28px;color:#fff;font-size:26px;font-weight:700;text-shadow:0 6px 20px rgba(0,0,0,0.7)">${f.title}</div>`;
+    s.innerHTML = `<div style="display:flex;flex-direction:column;align-items:flex-start;">
+                     <div class="badge">${f.genres[0] || "Kids"}</div>
+                     <div class="title">${escapeHtml(f.title)}</div>
+                   </div>`;
     heroSlider.appendChild(s);
+    s.onclick = ()=> openMovieModal(f);
   });
 
-  // autoplay simple
+  // autoplay (simple)
   clearInterval(window._heroInterval);
   let idx = 0;
-  const slides = document.querySelectorAll(".slide");
-  if(slides.length > 0){
+  const slides = heroSlider.querySelectorAll(".slide");
+  if(slides.length > 1){
     window._heroInterval = setInterval(()=>{
-      slides.forEach((sl,ii)=>sl.classList.remove("show"));
-      idx = (idx + 1) % slides.length;
-      slides[idx].classList.add("show");
+      // rotate nodes visually: move first to end
+      heroSlider.appendChild(heroSlider.children[0]);
     }, 4500);
   }
 }
 
-/* Agrupa por seções (todas, recomendados, por gênero: usamos gêneros detectados) */
+/* Agrupa por seções */
 function renderSections(){
   content.innerHTML = "";
 
-  // "Recomendados" (featured ou top 6)
+  // "Recomendados"
   let recommended = movies.filter(m=>m.featured);
   if(recommended.length === 0) recommended = movies.slice(0,6);
   if(filterKids) recommended = recommended.filter(m=>m.kids);
   if(filterGenre) recommended = recommended.filter(m=>m.genres.includes(filterGenre));
   content.appendChild(makeRow("Recomendados", recommended));
 
-  // seção por gênero (apenas gêneros existentes)
+  // seção por gênero
   const genres = Array.from(new Set(movies.flatMap(m=>m.genres))).slice(0,6);
   genres.forEach(g=>{
     let list = movies.filter(m => m.genres.includes(g));
     if(filterKids) list = list.filter(m=>m.kids);
-    if(filterGenre && filterGenre!==g) return; // se filtro pra outro gênero, pular
+    if(filterGenre && filterGenre!==g) return;
     content.appendChild(makeRow(g, list));
   });
 
-  // "Todos" (à direita) - com filtro aplicado
+  // "Todos"
   let all = movies.slice();
   if(filterKids) all = all.filter(m=>m.kids);
   if(filterGenre) all = all.filter(m=>m.genres.includes(filterGenre));
-  content.appendChild(makeRow("Todos os Filmes", all));
+  content.appendChild(makeRow("Todos os Conteúdos", all));
 }
 
-/* Monta uma linha (row) com controles de scroll */
+/* Monta uma linha (row) com controles */
 function makeRow(title, list){
   const section = document.createElement("section");
   section.className = "section";
@@ -209,21 +209,24 @@ function makeRow(title, list){
   const track = document.createElement("div"); track.className = "row-track";
   list.forEach(m=>{
     const c = document.createElement("div"); c.className = "card";
-    c.innerHTML = `<img src="${m.img}" alt="${m.title}">
-                   ${m.kids ? '<div class="tag">INFANTIL</div>' : ''}
-                   <div class="meta">${m.title}</div>`;
-    // click abre mini menu editar/excluir
+    const imgEl = document.createElement("img");
+    imgEl.src = m.img;
+    imgEl.alt = m.title;
+    c.appendChild(imgEl);
+    if(m.kids) c.innerHTML += `<div class="tag">INFANTIL</div>`;
+    c.innerHTML += `<div class="meta">${escapeHtml(m.title)}</div>`;
+    // click abre modal editar
     c.onclick = (e)=> openCardMenu(e,m);
     track.appendChild(c);
   });
   row.appendChild(track);
   section.appendChild(row);
 
-  // controles scroll
+  // controls scroll
   left.onclick = ()=> { track.scrollBy({left:-400, behavior:"smooth"}) }
   right.onclick = ()=> { track.scrollBy({left:400, behavior:"smooth"}) }
 
-  // permitir drag para scroll
+  // drag to scroll
   let isDown=false, startX, scrollLeft;
   track.addEventListener('mousedown', (e)=>{
     isDown=true; track.classList.add('active'); startX=e.pageX - track.offsetLeft; scrollLeft=track.scrollLeft;
@@ -241,25 +244,24 @@ function makeRow(title, list){
   return section;
 }
 
-/* Menu ao clicar em um card: abrir modal para editar/excluir */
+/* abrir modal edição */
 function openCardMenu(e, movie){
   e.stopPropagation();
-  // abrir modal já preenchido para edição
   openMovieModal(movie);
 }
 
-/* Modal open/close e formulário */
+/* modal open/close e formulário */
 function openMovieModal(movie=null){
   modal.classList.remove("hidden");
   if(movie){
-    modalTitle.textContent = "Editar Filme";
+    modalTitle.textContent = "Editar Conteúdo";
     inputId.value = movie.id;
     inputTitle.value = movie.title;
     inputGenres.value = movie.genres.join(", ");
     inputImage.value = movie.img;
     inputIsKids.checked = !!movie.kids;
   } else {
-    modalTitle.textContent = "Cadastrar Filme";
+    modalTitle.textContent = "Adicionar Conteúdo";
     movieForm.reset();
     inputId.value = "";
   }
@@ -275,7 +277,7 @@ function handleMovieForm(e){
   const idVal = inputId.value;
   const title = inputTitle.value.trim();
   const genres = inputGenres.value.split(",").map(s=>s.trim()).filter(Boolean);
-  const img = inputImage.value.trim() || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/450`;
+  const img = inputImage.value.trim() || `https://picsum.photos/seed/${encodeURIComponent(title)}/1200/675`;
   const kids = inputIsKids.checked;
 
   if(!title) return alert("Título é obrigatório");
@@ -286,7 +288,7 @@ function handleMovieForm(e){
   } else {
     // novo
     const newMovie = { id: id(), title, genres, img, kids, featured:false };
-    movies.unshift(newMovie); // aparece primeiro
+    movies.unshift(newMovie);
   }
   saveMovies(movies);
   buildChips();
@@ -294,27 +296,24 @@ function handleMovieForm(e){
   closeModal();
 }
 
-/* Excluir (exemplo: se quiser botão excluir, poderia adicionar) */
+/* excluir */
 function deleteMovie(idToDelete){
-  if(!confirm("Excluir filme?")) return;
+  if(!confirm("Excluir conteúdo?")) return;
   movies = movies.filter(m=>m.id !== idToDelete);
   saveMovies(movies);
   buildChips();
   renderAll();
 }
 
-/* ---------- Misc UI behavior ---------- */
-/* suporte para editar/excluir rápido: botão direito no card */
+/* menu via clique com botão direito (simples) */
 document.addEventListener("contextmenu", (ev)=>{
-  // se clicar com o botão direito em um .card -> menu nativo substituído por prompt simples
   if(ev.target.closest && ev.target.closest(".card")){
     ev.preventDefault();
     const cardEl = ev.target.closest(".card");
-    // obter título (meta)
     const title = cardEl.querySelector(".meta")?.textContent || "";
     const movie = movies.find(m => m.title === title);
     if(!movie) return;
-    const action = prompt(`"${movie.title}" — digite: editar | excluir | cancelar`);
+    const action = prompt(`${movie.title} — digite: editar | excluir | cancelar`);
     if(!action) return;
     if(action.toLowerCase().includes("editar")) openMovieModal(movie);
     if(action.toLowerCase().includes("excluir")) { deleteMovie(movie.id) }
@@ -324,4 +323,8 @@ document.addEventListener("contextmenu", (ev)=>{
 /* inicializar usuário (se existir) */
 renderUser();
 
-/* fim do arquivo */
+/* util: escape HTML para segurança */
+function escapeHtml(str){
+  if(!str) return "";
+  return String(str).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
