@@ -1,8 +1,6 @@
-/* kidsstream - script.js */
 const LS_KEY = "ks_movies_v1";
 const LS_USER = "ks_user_v1";
 
-/* ---------- Dados iniciais (sample) ---------- */
 const sampleData = [
   { id: id(), title: "Encanto", genres: ["Animação","Família"], img: "https://picsum.photos/seed/encanto/1200/675", kids: true, featured:true },
   { id: id(), title: "Toy Story", genres: ["Animação","Família"], img: "https://picsum.photos/seed/toystory/1200/675", kids:true, featured:true },
@@ -12,7 +10,6 @@ const sampleData = [
   { id: id(), title: "Piratas", genres:["Aventura","Ação"], img:"https://picsum.photos/seed/pirata/1200/675", kids:false }
 ];
 
-/* ---------- Helpers ---------- */
 function id(){ return Math.random().toString(36).slice(2,9) }
 function saveMovies(arr){ localStorage.setItem(LS_KEY, JSON.stringify(arr)) }
 function loadMovies(){
@@ -21,18 +18,15 @@ function loadMovies(){
   try { return JSON.parse(raw) } catch(e){ saveMovies(sampleData); return sampleData.slice() }
 }
 
-/* ---------- State ---------- */
 let movies = loadMovies();
 let filterGenre = null;
 let filterKids = false;
 
-/* ---------- UI refs ---------- */
 const content = document.getElementById("content");
 const genreChips = document.getElementById("genre-chips");
 const filterKidsEl = document.getElementById("filter-kids");
 const heroSlider = document.getElementById("heroSlider");
 
-/* modals */
 const modal = document.getElementById("modal");
 const modalTitle = document.getElementById("modal-title");
 const movieForm = document.getElementById("movie-form");
@@ -58,13 +52,11 @@ const cancelUser = document.getElementById("cancel-user");
 
 const resetBtn = document.getElementById("reset-data");
 
-/* ---------- Init ---------- */
 renderAll();
 buildChips();
 attachEvents();
 renderHero();
 
-/* ---------- Functions ---------- */
 
 function buildChips(){
   const allGenres = new Set();
@@ -79,7 +71,6 @@ function buildChips(){
     el.onclick = () => {
       if(el.dataset.genre === "") filterGenre = null;
       else filterGenre = el.dataset.genre;
-      // visual
       document.querySelectorAll(".chip").forEach(c=>c.classList.remove("chip--active"));
       el.classList.add("chip--active");
       renderAll();
