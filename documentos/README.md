@@ -152,3 +152,4 @@ spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS=false
 🔗 **Trello:** *"https://trello.com/b/2AJ9CFr8/devsys"*
 
 🔗 **Figma:** *adicionar*
+
