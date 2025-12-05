@@ -100,7 +100,6 @@ spring.jpa.hibernate.ddl-auto=update
   "classificacao": "Livre",
   "idioma": "Português",
   "sinopse": "conta a história de Rapunzel, uma princesa com cabelos mágicos dourados, mantida presa numa torre por anos pela vilã Mamãe Gothel, que usa seu cabelo para se manter jovem, mas Rapunzel sonha em ver as lanternas flutuantes que aparecem todo ano no seu aniversário.",
-"selecaoUsuario": "Responsável"
 }
 
 
@@ -141,7 +140,6 @@ spring.jpa.hibernate.ddl-auto=update
   "classificacao": "10",
   "idioma": "Português",
   "sinopse": "Em uma cidade formada por animais, a policial coelha Judy Hopps se une ao raposo Nick Wilde para desvendar um mistério que ameaça Zootopia.",
-  "selecaoUsuario": "Responsável"
 }
 
 ```
