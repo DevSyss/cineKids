@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_filme")
+@Table(name = "tb_filmes")
 public class Filme {
 
 	@ManyToOne
@@ -49,6 +49,7 @@ public class Filme {
 	@Column(name = "idioma")
 	private String idioma;
 	
+
 	public Filme() {
 	}
 
@@ -107,4 +108,5 @@ public class Filme {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
+	
 }
