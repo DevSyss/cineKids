@@ -1,4 +1,3 @@
-<!-- NOVO -->
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -7,15 +6,12 @@
   <title>CineKids — Plataforma Infantil</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-  <!-- NAVBAR -->
   <header class="ks-header">
     <div class="ks-left">
       <div class="ks-logo">
-        <!-- simples logo redondo teste -->
         <div class="logo-mark" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="12" r="10" fill="#FF3B30"/>
@@ -27,7 +23,7 @@
 
       <nav class="ks-nav" role="navigation" aria-label="Menu principal">
         <button class="nav-btn active" data-view="home">Início</button>
-        <button class="nav-btn" data-view="search">Pesquisar</button>
+        <button class="nav-btn" data-view="generos" id="open-gen-page">Gêneros</button>
         <button class="nav-btn" data-view="list">Minha Lista</button>
       </nav>
     </div>
@@ -40,12 +36,10 @@
     </div>
   </header>
 
-  <!-- HERO tESTE PRA PROVAR-->
   <section class="ks-hero">
     <div class="hero-track" id="heroSlider" aria-live="polite"></div>
   </section>
 
-  <!-- FILTROS -->
   <section class="ks-filters container">
     <div id="genre-chips" class="chips" aria-label="Gêneros"></div>
 
@@ -59,15 +53,12 @@
     </div>
   </section>
 
-  <!-- CONTEÚDO -->
   <main class="container" id="content" role="main"></main>
 
-  <!-- FOOTER -->
   <footer class="ks-footer">
-    <small>Projeto educacional — CineKids — CRUD local</small>
+    <small>Projeto educacional — CineKids — CRUD com Spring Boot</small>
   </footer>
 
-  <!-- MODAL: FORM (ARRUMEI) FILME -->
   <div id="modal" class="ks-modal hidden" role="dialog" aria-modal="true">
     <div class="ks-modal-card" role="document">
       <button id="close-modal" class="close" aria-label="Fechar">&times;</button>
@@ -99,3 +90,25 @@
     </div>
   </div>
 
+  <div id="modal-user" class="ks-modal hidden" role="dialog">
+    <div class="ks-modal-card" role="document" style="width:360px;">
+      <button id="close-user-modal" class="close" aria-label="Fechar">&times;</button>
+      <h3>Entrar / Cadastrar</h3>
+      <form id="user-form">
+        <label>Nome
+          <input id="user-name" required />
+        </label>
+        <label>Email
+          <input id="user-email" type="email" required />
+        </label>
+        <div class="form-actions">
+          <button class="ks-btn ks-btn-primary" type="submit">Salvar</button>
+          <button class="ks-btn ks-btn-ghost" type="button" id="cancel-user">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/script.js"></script>
+</body>
+</html>

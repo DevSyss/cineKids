@@ -1,26 +1,12 @@
-const LS_KEY = "ks_movies_v1";
-const LS_USER = "ks_user_v1";
 
-const sampleData = [
-  { id: id(), title: "Encanto", genres: ["Animação","Família"], img: "https://picsum.photos/seed/encanto/1200/675", kids: true, featured:true },
-  { id: id(), title: "Toy Story", genres: ["Animação","Família"], img: "https://picsum.photos/seed/toystory/1200/675", kids:true, featured:true },
-  { id: id(), title: "Luca", genres: ["Animação","Aventura"], img: "https://picsum.photos/seed/luca/1200/675", kids:true },
-  { id: id(), title: "Planeta Azul", genres:["Documentário","Natureza"], img:"https://picsum.photos/seed/nature/1200/675", kids:true },
-  { id: id(), title: "Aventura no Espaço", genres:["Aventura","Ficção"], img:"https://picsum.photos/seed/space/1200/675", kids:false },
-  { id: id(), title: "Piratas", genres:["Aventura","Ação"], img:"https://picsum.photos/seed/pirata/1200/675", kids:false }
-];
+const API_MOVIES = "/api/movies";
+const API_GENRES = "/api/genres";
 
 function id(){ return Math.random().toString(36).slice(2,9) }
-function saveMovies(arr){ localStorage.setItem(LS_KEY, JSON.stringify(arr)) }
-function loadMovies(){
-  const raw = localStorage.getItem(LS_KEY);
-  if(!raw){ saveMovies(sampleData); return sampleData.slice() }
-  try { return JSON.parse(raw) } catch(e){ saveMovies(sampleData); return sampleData.slice() }
+function escapeHtml(str){
+  if(!str) return "";
+  return String(str).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
-
-let movies = loadMovies();
-let filterGenre = null;
-let filterKids = false;
 
 const content = document.getElementById("content");
 const genreChips = document.getElementById("genre-chips");
@@ -51,34 +37,17 @@ const userInitials = document.getElementById("user-initials");
 const cancelUser = document.getElementById("cancel-user");
 
 const resetBtn = document.getElementById("reset-data");
+const openGenPageBtn = document.getElementById("open-gen-page");
 
-renderAll();
-buildChips();
-attachEvents();
-renderHero();
+let movies = [];
+let genres = [];
+let filterGenre = null;
+let filterKids = false;
 
-
-function buildChips(){
-  const allGenres = new Set();
-  movies.forEach(m => m.genres.forEach(g => allGenres.add(g.trim())));
-  genreChips.innerHTML = "";
-  const genresArr = ["Todos", ...Array.from(allGenres)];
-  genresArr.forEach(g => {
-    const el = document.createElement("button");
-    el.className = "chip";
-    el.textContent = g;
-    el.dataset.genre = g === "Todos" ? "" : g;
-    el.onclick = () => {
-      if(el.dataset.genre === "") filterGenre = null;
-      else filterGenre = el.dataset.genre;
-      document.querySelectorAll(".chip").forEach(c=>c.classList.remove("chip--active"));
-      el.classList.add("chip--active");
-      renderAll();
-    };
-    genreChips.appendChild(el);
-    if(g === "Todos") el.classList.add("chip--active");
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  attachEvents();
+  loadAll();
+});
 
 function attachEvents(){
   openAddBtn.onclick = () => openMovieModal();
@@ -92,12 +61,13 @@ function attachEvents(){
   userForm.onsubmit = handleUserForm;
 
   filterKidsEl.onchange = (e)=> { filterKids = e.target.checked; renderAll() }
-  resetBtn.onclick = ()=> { if(confirm("Resetar dados para o exemplo?")) { localStorage.removeItem(LS_KEY); movies = loadMovies(); renderAll(); buildChips(); renderHero(); } }
+  resetBtn.onclick = ()=> { if(confirm("Resetar dados para o exemplo?")) initSampleData() }
 
-  // modal close on backdrop click
   document.querySelectorAll(".ks-modal").forEach(m=>{
     m.addEventListener("click", (e)=> { if(e.target === m) m.classList.add("hidden") })
   });
+
+  if(openGenPageBtn) openGenPageBtn.onclick = ()=> window.location.href = "/generos";
 }
 
 function handleUserForm(e){
@@ -106,21 +76,63 @@ function handleUserForm(e){
   const email = userEmail.value.trim();
   if(!name || !email) return alert("Preencha nome e e-mail");
   const user = { name, email, created: Date.now() };
-  localStorage.setItem(LS_USER, JSON.stringify(user));
+  localStorage.setItem("ks_user_v1", JSON.stringify(user));
   renderUser();
   modalUser.classList.add("hidden");
   userForm.reset();
 }
-
 function renderUser(){
-  const raw = localStorage.getItem(LS_USER);
+  const raw = localStorage.getItem("ks_user_v1");
   if(!raw) { userBadge.hidden = true; return }
   const u = JSON.parse(raw);
   userInitials.textContent = u.name.split(" ").map(p=>p[0]).slice(0,2).join("").toUpperCase();
   userBadge.hidden = false;
 }
+async function loadAll(){
+  await loadGenres();
+  await loadMovies();
+  buildChips();
+  renderAll();
+}
 
-/* Renderização principal */
+async function loadMovies(){
+  try {
+    const res = await fetch(API_MOVIES);
+    movies = await res.json();
+  } catch(e){ console.error("Erro carregar filmes", e); movies = []; }
+}
+async function loadGenres(){
+  try {
+    const res = await fetch(API_GENRES);
+    genres = await res.json();
+  } catch(e){ console.error("Erro carregar generos", e); genres = []; }
+}
+
+async function initSampleData(){
+  const gnames = ["Animação","Família","Aventura","Documentário","Ficção","Ação"];
+  for(const gn of gnames){
+    if(!genres.find(g=>g.name === gn)){
+      await fetch(API_GENRES, {method:"POST", headers: {'Content-Type':'application/json'}, body: JSON.stringify({name:gn})});
+    }
+  }
+  await loadGenres();
+
+  if((await (await fetch(API_MOVIES)).json()).length === 0){
+    const sampleMovies = [
+      { title:"Encanto", genres:"Animação,Família", img:"https://picsum.photos/seed/encanto/1200/675", kids:true, featured:true },
+      { title:"Toy Story", genres:"Animação,Família", img:"https://picsum.photos/seed/toystory/1200/675", kids:true, featured:true },
+      { title:"Luca", genres:"Animação,Aventura", img:"https://picsum.photos/seed/luca/1200/675", kids:true, featured:false },
+      { title:"Planeta Azul", genres:"Documentário,Natureza", img:"https://picsum.photos/seed/nature/1200/675", kids:true, featured:false }
+    ];
+    for(const s of sampleMovies){
+      await fetch(API_MOVIES, {method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify(s)});
+    }
+  }
+  await loadMovies();
+  buildChips();
+  renderAll();
+}
+
 function renderAll(){
   renderHero();
   renderSections();
@@ -128,63 +140,52 @@ function renderAll(){
 }
 
 function renderHero(){
+  if(!heroSlider) return;
   heroSlider.innerHTML = "";
   const featured = movies.filter(m=>m.featured).slice(0,4);
   const pool = featured.length ? featured : movies.slice(0,3);
-  // main big slide + side mini slides
-  pool.forEach((f, i)=>{
+  pool.forEach((f,i)=>{
     const s = document.createElement("div");
     s.className = i === 0 ? "slide" : "slide small";
     s.style.backgroundImage = `url(${f.img})`;
     s.innerHTML = `<div style="display:flex;flex-direction:column;align-items:flex-start;">
-                     <div class="badge">${f.genres[0] || "Kids"}</div>
-                     <div class="title">${escapeHtml(f.title)}</div>
-                   </div>`;
+                    <div class="badge">${(f.genres || "").split(",")[0] || "Kids"}</div>
+                    <div class="title">${escapeHtml(f.title)}</div>
+                  </div>`;
     heroSlider.appendChild(s);
     s.onclick = ()=> openMovieModal(f);
   });
 
-  // autoplay (simple)
   clearInterval(window._heroInterval);
-  let idx = 0;
-  const slides = heroSlider.querySelectorAll(".slide");
-  if(slides.length > 1){
-    window._heroInterval = setInterval(()=>{
-      // rotate nodes visually: move first to end
-      heroSlider.appendChild(heroSlider.children[0]);
-    }, 4500);
+  if(heroSlider.children.length > 1){
+    window._heroInterval = setInterval(()=>{ heroSlider.appendChild(heroSlider.children[0]); }, 4500);
   }
 }
 
-/* Agrupa por seções */
 function renderSections(){
   content.innerHTML = "";
 
-  // "Recomendados"
   let recommended = movies.filter(m=>m.featured);
   if(recommended.length === 0) recommended = movies.slice(0,6);
   if(filterKids) recommended = recommended.filter(m=>m.kids);
-  if(filterGenre) recommended = recommended.filter(m=>m.genres.includes(filterGenre));
+  if(filterGenre) recommended = recommended.filter(m=> (m.genres||"").split(",").includes(filterGenre));
   content.appendChild(makeRow("Recomendados", recommended));
 
-  // seção por gênero
-  const genres = Array.from(new Set(movies.flatMap(m=>m.genres))).slice(0,6);
-  genres.forEach(g=>{
-    let list = movies.filter(m => m.genres.includes(g));
+  const genresList = Array.from(new Set(movies.flatMap(m=> (m.genres||"").split(",") ))).slice(0,6).filter(Boolean);
+  genresList.forEach(g=>{
+    let list = movies.filter(m => (m.genres||"").split(",").includes(g));
     if(filterKids) list = list.filter(m=>m.kids);
-    if(filterGenre && filterGenre!==g) return;
+    if(filterGenre && filterGenre !== g) return;
     content.appendChild(makeRow(g, list));
   });
 
-  // "Todos"
   let all = movies.slice();
   if(filterKids) all = all.filter(m=>m.kids);
-  if(filterGenre) all = all.filter(m=>m.genres.includes(filterGenre));
+  if(filterGenre) all = all.filter(m=> (m.genres||"").split(",").includes(filterGenre));
   content.appendChild(makeRow("Todos os Conteúdos", all));
 }
 
-/* Monta uma linha (row) com controles */
-function makeRow(title, list){
+function makeRow(title,list){
   const section = document.createElement("section");
   section.className = "section";
 
@@ -204,20 +205,25 @@ function makeRow(title, list){
     imgEl.src = m.img;
     imgEl.alt = m.title;
     c.appendChild(imgEl);
-    if(m.kids) c.innerHTML += `<div class="tag">INFANTIL</div>`;
-    c.innerHTML += `<div class="meta">${escapeHtml(m.title)}</div>`;
-    // click abre modal editar
+    if(m.kids){
+      const tag = document.createElement("div");
+      tag.className = "tag"; tag.textContent = "INFANTIL";
+      c.appendChild(tag);
+    }
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = m.title;
+    c.appendChild(meta);
+
     c.onclick = (e)=> openCardMenu(e,m);
     track.appendChild(c);
   });
   row.appendChild(track);
   section.appendChild(row);
 
-  // controls scroll
   left.onclick = ()=> { track.scrollBy({left:-400, behavior:"smooth"}) }
   right.onclick = ()=> { track.scrollBy({left:400, behavior:"smooth"}) }
 
-  // drag to scroll
   let isDown=false, startX, scrollLeft;
   track.addEventListener('mousedown', (e)=>{
     isDown=true; track.classList.add('active'); startX=e.pageX - track.offsetLeft; scrollLeft=track.scrollLeft;
@@ -235,21 +241,19 @@ function makeRow(title, list){
   return section;
 }
 
-/* abrir modal edição */
 function openCardMenu(e, movie){
   e.stopPropagation();
   openMovieModal(movie);
 }
 
-/* modal open/close e formulário */
 function openMovieModal(movie=null){
   modal.classList.remove("hidden");
   if(movie){
     modalTitle.textContent = "Editar Conteúdo";
     inputId.value = movie.id;
     inputTitle.value = movie.title;
-    inputGenres.value = movie.genres.join(", ");
-    inputImage.value = movie.img;
+    inputGenres.value = movie.genres || "";
+    inputImage.value = movie.img || "";
     inputIsKids.checked = !!movie.kids;
   } else {
     modalTitle.textContent = "Adicionar Conteúdo";
@@ -262,41 +266,46 @@ function closeModal(){
   movieForm.reset();
 }
 
-/* salvar/editar */
-function handleMovieForm(e){
+async function handleMovieForm(e){
   e.preventDefault();
   const idVal = inputId.value;
   const title = inputTitle.value.trim();
-  const genres = inputGenres.value.split(",").map(s=>s.trim()).filter(Boolean);
+  const genresVal = inputGenres.value.split(",").map(s=>s.trim()).filter(Boolean).join(",");
   const img = inputImage.value.trim() || `https://picsum.photos/seed/${encodeURIComponent(title)}/1200/675`;
   const kids = inputIsKids.checked;
 
   if(!title) return alert("Título é obrigatório");
 
+  const payload = { title, genres:genresVal, img, kids, featured:false };
+
   if(idVal){
-    // editar
-    movies = movies.map(m => m.id === idVal ? {...m, title, genres, img, kids} : m);
+    await fetch(`${API_MOVIES}/${idVal}`, {
+      method:"PUT",
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
   } else {
-    // novo
-    const newMovie = { id: id(), title, genres, img, kids, featured:false };
-    movies.unshift(newMovie);
+    await fetch(API_MOVIES, {
+      method:"POST",
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
   }
-  saveMovies(movies);
+
+  await loadMovies();
   buildChips();
   renderAll();
   closeModal();
 }
 
-/* excluir */
-function deleteMovie(idToDelete){
+async function deleteMovie(idToDelete){
   if(!confirm("Excluir conteúdo?")) return;
-  movies = movies.filter(m=>m.id !== idToDelete);
-  saveMovies(movies);
+  await fetch(`${API_MOVIES}/${idToDelete}`, { method:"DELETE" });
+  await loadMovies();
   buildChips();
   renderAll();
 }
 
-/* menu via clique com botão direito (simples) */
 document.addEventListener("contextmenu", (ev)=>{
   if(ev.target.closest && ev.target.closest(".card")){
     ev.preventDefault();
@@ -311,11 +320,75 @@ document.addEventListener("contextmenu", (ev)=>{
   }
 });
 
-/* inicializar usuário (se existir) */
-renderUser();
-
-/* util: escape HTML para segurança */
-function escapeHtml(str){
-  if(!str) return "";
-  return String(str).replace(/[&<>"']/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function buildChips(){
+  genreChips.innerHTML = "";
+  const allGenres = new Set();
+  movies.forEach(m => (m.genres||"").split(",").forEach(g=> { if(g && g.trim()) allGenres.add(g.trim()) }));
+  const genresArr = ["Todos", ...Array.from(allGenres)];
+  genresArr.forEach(g => {
+    const el = document.createElement("button");
+    el.className = "chip";
+    el.textContent = g;
+    el.dataset.genre = g === "Todos" ? "" : g;
+    el.onclick = () => {
+      if(el.dataset.genre === "") filterGenre = null;
+      else filterGenre = el.dataset.genre;
+      document.querySelectorAll(".chip").forEach(c=>c.classList.remove("chip--active"));
+      el.classList.add("chip--active");
+      renderAll();
+    };
+    genreChips.appendChild(el);
+    if(g === "Todos") el.classList.add("chip--active");
+  });
 }
+
+async function loadGenrePage(){
+  if(!document.getElementById("genre-list")) return;
+  const list = document.getElementById("genre-list");
+  list.innerHTML = "";
+  genres.forEach(g=>{
+    const li = document.createElement("li");
+    li.textContent = g.name + " ";
+    const btnDel = document.createElement("button");
+    btnDel.textContent = "Excluir";
+    btnDel.onclick = async ()=> {
+      if(confirm("Excluir gênero?")) {
+        await fetch(`${API_GENRES}/${g.id}`, { method:"DELETE" });
+        await loadGenres();
+        loadGenrePage();
+        buildChips();
+        await loadMovies();
+        renderAll();
+      }
+    };
+    li.appendChild(btnDel);
+    list.appendChild(li);
+  });
+
+  const addBtn = document.getElementById("btn-add-genre");
+  if(addBtn){
+    addBtn.onclick = async () => {
+      const input = document.getElementById("new-genre");
+      const name = input.value.trim();
+      if(!name) return alert("Digite um nome");
+      const r = await fetch(API_GENRES, { method:"POST", headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name })});
+      if(r.status === 409) return alert("Gênero já existe");
+      if(!r.ok) return alert("Erro ao criar");
+      await loadGenres();
+      input.value = "";
+      loadGenrePage();
+      buildChips();
+    };
+  }
+}
+
+async function loadAndRender(){
+  await loadGenres();
+  await loadMovies();
+  buildChips();
+  renderAll();
+  renderUser();
+  loadGenrePage();
+}
+
+loadAndRender();
