@@ -1,11 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Do Genero - DevSys</title>
+    <title>Novo Filme</title>
+    <link rel="stylesheet" href="/css/cadastroGenero.css">
 </head>
 <body>
-    
+
+    <div class="container">
+        <div class="card">
+            <h2>Cadastro Gênero</h2>
+
+            <form>
+                <label>Nome</label>
+                <input type="text">
+
+                <label>Gênero</label>
+                <select>
+                    <option value="">Selecione</option>
+                    <option>Ação</option>
+                    <option>Comédia</option>
+                    <option>Drama</option>
+                    <option>Terror</option>
+                    <option>Ficção Científica</option>
+                    <option>Romance</option>
+                    <option>Aventura</option>
+                </select>
+
+                <div class="row">
+                    <div class="col">
+                        <label>Ano</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="col">
+                        <label>Diretor</label>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <label>URL da Capa</label>
+                <input type="text">
+
+                <button type="submit">Salvar Gênero</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
