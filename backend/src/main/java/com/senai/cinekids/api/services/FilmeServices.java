@@ -31,10 +31,12 @@ public class FilmeServices {
         Filme fVelho = repository.findById(id).get();
 
         fVelho.setTitulo(fNovo.getTitulo());
-        fVelho.setDescricao(fNovo.getDescricao());
+        fVelho.setSinopse(fNovo.getSinopse());
         fVelho.setGenero(fNovo.getGenero());
         fVelho.setClassificacao(fNovo.getClassificacao());
         fVelho.setAnoLancamento(fNovo.getAnoLancamento());
+        fVelho.setIdioma(fNovo.getIdioma());
+        
         
 
         return repository.save(fVelho);
