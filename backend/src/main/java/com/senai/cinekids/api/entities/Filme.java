@@ -53,12 +53,21 @@ public class Filme {
 	public Filme() {
 	}
 
-	public Filme(String titulo, String sinopse, int anoLancamento, String classificacao, Genero genero) {
+	public Filme(String titulo, String sinopse, String idioma, int anoLancamento, String classificacao, Genero genero) {
 		this.titulo = titulo;
 		this.sinopse = sinopse;
 		this.anoLancamento = anoLancamento;
 		this.classificacao = classificacao;
+		this.idioma = idioma;
 
+	}
+
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	public Long getId() {
@@ -77,12 +86,12 @@ public class Filme {
 		this.titulo = titulo;
 	}
 
-	public String getDescricao() {
+	public String getSinopse() {
 		return sinopse;
 	}
 
-	public void setDescricao(String descricao) {
-		this.sinopse = descricao;
+	public void setSinopse(String sinopse) {
+		this.sinopse = sinopse;
 	}
 
 	public int getAnoLancamento() {
@@ -101,12 +110,12 @@ public class Filme {
 		this.classificacao = classificacao;
 	}
 
-	public Genero getGenero() {
-		return genero;
+	public String getIdioma() {
+		return idioma;
 	}
 
-	public void setGenero(Genero genero) {
-		this.genero = genero;
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
 	}
 	
-}

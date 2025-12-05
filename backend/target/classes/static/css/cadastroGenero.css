@@ -1,0 +1,68 @@
+body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background: linear-gradient(135deg, #ffb3e6, #a1c4fd);
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 30px auto;
+    background: #ffffffcc;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #ff4fa1;
+}
+
+form label {
+    font-weight: bold;
+    color: #333;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 16px;
+    border: 2px solid #ff9cd4;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #ff4fa1;
+    border: none;
+    color: white;
+    font-size: 18px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background: #ff77bb;
+}
+
+.card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.card h3 {
+    color: #ff4fa1;
+}
