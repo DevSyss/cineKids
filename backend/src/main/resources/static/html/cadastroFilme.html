@@ -1,11 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Do Filme - DevSys</title>
+    <title>Novo Filme</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    
+
+    <div class="container">
+        <div class="card">
+            <h2>Cadastro Filme</h2>
+
+            <form>
+                <label>Nome</label>
+                <input type="text">
+
+                <label>Classificação etária</label>
+                <select>
+                    <option value="">Selecione</option>
+                    <option>Livre</option>
+                    <option>10+</option>
+                    <option>12+</option>
+                    <option>14+</option>
+                </select>
+
+                <div class="row">
+                    <div class="col">
+                        <label>Ano</label>
+                        <input type="number">
+                    </div>
+
+                    <div class="col">
+                        <label>Diretor</label>
+                        <input type="text">
+                    </div>
+                </div>
+
+                <label>URL da Capa</label>
+                <input type="text">
+
+                <button type="submit">Salvar Filme</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
