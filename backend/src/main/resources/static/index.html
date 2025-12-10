@@ -1,104 +1,98 @@
-<!-- NOVO -->
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CineKids — Plataforma Infantil</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineKids — Plataforma Infantil</title>
+<link rel="stylesheet" href="css/style.css">
+ <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- NAVBAR -->
-  <header class="ks-header">
-    <div class="ks-left">
-      <div class="ks-logo">
-        <!-- logo redondo -->
-        <div class="logo-mark" aria-hidden="true">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" fill="#FF3B30"/>
-            <path d="M9 8l6 4-6 4V8z" fill="#fff"/>
-          </svg>
-        </div>
-        <span class="logo-text">CineKids</span>
-      </div>
 
-      <nav class="ks-nav" role="navigation" aria-label="Menu principal">
-        <button class="nav-btn active" data-view="home">Início</button>
-        <button class="nav-btn" data-view="search">Pesquisar</button>
-        <button class="nav-btn" data-view="list">Minha Lista</button>
-      </nav>
+<header>
+  <div class="brand">
+    <div class="logo"></div>
+    <h2>CineKids - DevSys</h2>
+  </div>
+
+  <div>
+  <nav style="padding:15px; display: inline; text-align: left;" >
+  <button class="btn" onclick="openTab('homeSection')">Home Page</button>
+  <button class="btn" onclick="openTab('genresSection')">Gêneros</button>
+   <button class="btn" onclick="openTab('adminSection')">Meus Filmes</button>
+</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <button class="theme-btn" id="themeBtn">Kids</button>
+    <div class="profile-circle"></div>
+  </div>
+
+</header>
+
+
+<div class="search-actions">
+    <div id="searchBox">
+        <input type="text" id="searchInput" placeholder="Buscar Filme Por ID..." oninput="searchMovie()">
     </div>
 
-    <div class="ks-right">
-      <button id="open-register" class="ks-btn ks-btn-ghost">Entrar</button>
-      <div id="user-badge" class="user-badge" title="Perfil" hidden>
-        <span id="user-initials"></span>
-      </div>
-    </div>
-  </header>
+    <button class="btn primary" onclick="openTab('myMoviesSection')">
+        Cadastrar Filme +
+    </button>
+</div>
 
-  <!-- HERO -->
-  <section class="ks-hero">
-    <div class="hero-track" id="heroSlider" aria-live="polite"></div>
-  </section>
 
-  <!-- FILTROS -->
-  <section class="ks-filters container">
-    <div id="genre-chips" class="chips" aria-label="Gêneros"></div>
+<!-- HOMEPAGE -->
+<section id="homeSection">
+  <h2>Destaques</h2>
 
-    <label class="chip">
-      <input type="checkbox" id="filter-kids"> Só infantil
-    </label>
-
-    <div class="actions">
-      <button id="open-add-movie" class="ks-btn ks-btn-primary">+ Adicionar</button>
-      <button id="reset-data" class="ks-btn ks-btn-ghost">Resetar</button>
-    </div>
-  </section>
-
-  <!-- CONTEÚDO -->
-  <main class="container" id="content" role="main"></main>
-
-  <!-- FOOTER -->
-  <footer class="ks-footer">
-    <small>Projeto educacional — CineKids — CRUD local</small>
-  </footer>
-
-  <!-- MODAL: FORM FILME -->
-  <div id="modal" class="ks-modal hidden" role="dialog" aria-modal="true">
-    <div class="ks-modal-card" role="document">
-      <button id="close-modal" class="close" aria-label="Fechar">&times;</button>
-      <h3 id="modal-title">Cadastrar Conteúdo</h3>
-
-      <form id="movie-form">
-        <input type="hidden" id="movie-id" />
-        <label>Título
-          <input id="title" required />
-        </label>
-
-        <label>Gêneros (separe por vírgula)
-          <input id="genres" placeholder="Ex: Animação, Família" />
-        </label>
-
-        <label>Imagem (URL)
-          <input id="image" placeholder="https://..." />
-        </label>
-
-        <label class="kid-toggle">
-          <input type="checkbox" id="isKids"> Conteúdo Infantil
-        </label>
-
-        <div class="form-actions">
-          <button type="submit" class="ks-btn ks-btn-primary">Salvar</button>
-          <button type="button" id="cancel" class="ks-btn ks-btn-ghost">Cancelar</button>
-        </div>
-      </form>
+  <div class="carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <img src="https://happykids.pt/wp-content/uploads/2024/12/maxresdefault-1024x576.jpg">
+      <img src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/10/madagascar.jpeg?w=849&h=477&crop=0">
+      <img src="https://static.wixstatic.com/media/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg/v1/fill/w_800,h_451,al_c,q_85,enc_avif,quality_auto/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg">
+       <img src="https://www.guiadasemana.com.br/contentFiles/system/pictures/2015/9/144142/cropped/divertida.jpg">
+       <img src="https://cinema10.com.br/upload/noticias/2019-2/2192602189.jpg">
+       <img src=" https://muralzinhodeideias.com.br/wp-content/uploads/2020/01/scooby-filme-divulgacao.jpg">
+      <img src="https://static.wixstatic.com/media/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg/v1/fill/w_980,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg">
     </div>
   </div>
 
-  <!-- MODAL: USUÁRIO -->
+  <h2>Filmes Cadastrados</h2>
+  <div class="grid" id="recommendedGrid"></div>
+</section>
 
-  <script src="script.js"></script>
+<!--GÊNEROS-->
+
+<section id="genresSection">
+  <h2>Gêneros Cadastrados</h2>
+
+  <p style="color:gray">Futuramente integrará com o MySQL.</p>
+</section>
+
+<!--ADMIN-->
+
+
+  <form id="filmForm">
+
+</section>
+
+<!--FILMES CADASTRADOS  -->
+<section id="myMoviesSection">
+  <h2>Filmes Cadastrados</h2>
+  <div class="grid" id="myMoviesGrid"></div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h2 id="detailTitle"></h2>
+    <p id="detailDesc"></p>
+    <button class="btn" onclick="closeModal()">Fechar</button>
+  </div>
+</div>
+
+<script src="javascript/script.js"></script>
+
+
 </body>
 </html>
