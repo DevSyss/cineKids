@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Filme</title>
+    <title>Cadastro Filme</title>
     <link rel="stylesheet" href="/css/cadastroFilme.css">
 </head>
 <body>
@@ -12,36 +12,42 @@
         <div class="card">
             <h2>Cadastro Filme</h2>
 
-            <form>
+            <form id="formFilme">
+
                 <label>Nome</label>
-                <input type="text">
+                <input type="text" id="nome" required>
 
                 <label>Classificação etária</label>
-                <select>
+                <select id="classificacao" required>
                     <option value="">Selecione</option>
-                    <option>Livre</option>
-                    <option>10+</option>
-                    <option>12+</option>
-                    <option>14+</option>
+                    <option value="L">L</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
                 </select>
 
-                <div class="row">
-                    <div class="col">
+                <div class="linha">
+                    <div>
                         <label>Ano</label>
-                        <input type="number">
+                        <input type="number" id="ano" required>
                     </div>
 
-                    <div class="col">
+                    <div>
                         <label>Diretor</label>
-                        <input type="text">
+                        <input type="text" id="diretor" required>
                     </div>
                 </div>
 
                 <label>URL da Capa</label>
-                <input type="text">
+                <input type="text" id="url" required>
 
                 <button type="submit">Salvar Filme</button>
             </form>
+
         </div>
     </div>
+
+    <script src="/javascript/cadastroFilme.js"></script>
+</body>
+</html>
 
