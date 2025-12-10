@@ -1,6 +1,7 @@
 body {
     font-family: 'Comic Sans MS', sans-serif;
-    background: linear-gradient(135deg, #ffb3e6, #a1c4fd);
+    background: #ffeded;
+background: radial-gradient(circle, rgba(255, 237, 237, 1) 0%, rgba(148, 187, 233, 1) 100%);
     margin: 0;
     padding: 0;
 }
@@ -17,7 +18,7 @@ body {
 
 h1, h2 {
     text-align: center;
-    color: #ff4fa1;
+    color: lightpink;
 }
 
 form label {
@@ -29,7 +30,7 @@ form input, form select {
     width: 100%;
     padding: 10px;
     margin: 8px 0 16px;
-    border: 2px solid #ff9cd4;
+    border: 2px solid lightpink;
     border-radius: 10px;
     font-size: 16px;
 }
@@ -37,7 +38,7 @@ form input, form select {
 button {
     width: 100%;
     padding: 12px;
-    background: #ff4fa1;
+    background: lightpink;
     border: none;
     color: white;
     font-size: 18px;
@@ -47,7 +48,7 @@ button {
 }
 
 button:hover {
-    background: #ff77bb;
+    background: lightpink;
 }
 
 .card {
@@ -64,5 +65,5 @@ button:hover {
 }
 
 .card h3 {
-    color: #ff4fa1;
+    color: lightpink;
 }
