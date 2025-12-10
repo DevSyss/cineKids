@@ -1,199 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastrar Filme</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineKids - Editar Filme</title>
+    <link rel="stylesheet" href="/css/cadastroFilme.css">
 
-  <style>
-    /* ------------------------- */
-    /* 🎨 ESTILOS GERAIS */
-    /* ------------------------- */
-    :root{
-      --input-bg:#dff3ff;
-      --border:#cfcfcf;
-      --btn-danger:#d9534f;
-      --btn-success:#28a745;
-      --radius:6px;
-    }
-
-    body{
-      font-family: Arial, sans-serif;
-      background:#fff;
-      padding:20px;
-      display:flex;
-      justify-content:center;
-    }
-
-    /* ------------------------- */
-    /* 🧩 CONTAINER PRINCIPAL */
-    /* ------------------------- */
-    .card{
-      width:100%;
-      max-width:900px;
-      border:2px solid var(--border);
-      border-radius:10px;
-      padding:24px;
-    }
-
-    .title{
-      font-size:22px;
-      font-weight:700;
-      margin-bottom:24px;
-    }
-
-    /* ------------------------- */
-    /* 📝 CAMPOS DO FORMULÁRIO */
-    /* ------------------------- */
-    .form label{
-      display:block;
-      margin-bottom:14px;
-      font-weight:600;
-    }
-
-    input, textarea{
-      width:100%;
-      padding:10px;
-      margin-top:4px;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      background:var(--input-bg);
-      font-size:15px;
-    }
-
-    textarea{height:90px;}
-
-    .row{
-      display:flex;
-      gap:20px;
-      margin-bottom:14px;
-    }
-
-    .col{flex:1;}
-
-    /* ------------------------- */
-    /* 🔰 CLASSIFICAÇÃO */
-    /* ------------------------- */
-    .classif-block span{
-      font-weight:600;
-      padding: 500px;
-    }
-
-    .classificacao{
-      display:flex;
-      gap:10px;
-      margin-top:6px;
-    }
-
-    .c{
-      width:40px; height:40px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      border-radius:var(--radius);
-      color:#fff;
-    }
-
-    .c-l{background:#2ecc71;}
-    .c-10{background:#3498db;}
-    .c-12{background:#f1c40f; color:#000;}
-    .c-14{background:#e67e22;}
-
-    /* ------------------------- */
-    /* 📎 UPLOAD */
-    /* ------------------------- */
-    .upload-block{
-      margin-top:8px;
-    }
-
-    /* ------------------------- */
-    /* 🎛️ BOTÕES */
-    /* ------------------------- */
-    .actions{
-      display:flex;
-      gap:12px;
-      justify-content:flex-end;
-      margin-top:20px;
-    }
-
-    .btn{
-      padding:12px 20px;
-      border:none;
-      border-radius:var(--radius);
-      color:#fff;
-      cursor:pointer;
-      font-weight:700;
-      font-size:15px;
-    }
-
-    .cancelar{background:var(--btn-danger);} 
-    .cadastrar{background:var(--btn-success);} 
-  </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <main class="card">
-    <h2 class="title">Cadastrar novo filme</h2>
+    <div class="container">
 
-    <form class="form">
+        <h2 class="titulo">Editar filme</h2>
 
-      <!-- Nome -->
-      <label>
-        Nome
-        <input type="text" placeholder="digite aqui..">
-      </label>
+        <div class="form-grid">
 
-      <!-- Ano -->
-      <label>
-        Ano
-        <input type="number" placeholder="digite aqui..">
-      </label>
+          
+            <div class="capa-area">
+                <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v1/variant/disney/A12A7D12E07F36E3A7A3E97F6ABF41D9E8CBA8B4/scale?width=600&aspectRatio=1.78&format=jpeg" class="capa">
+            </div>
 
-      <!-- Descrição -->
-      <label>
-        Descrição
-        <textarea placeholder="digite aqui.."></textarea>
-      </label>
+          
+            <div class="form">
 
-      <!-- Linha com Gênero e Classificação -->
-      <div class="row">
+                <label>Nome</label>
+                <input id="nome" class="campo" value="A Princesa e o Sapo">
 
-        <label class="col">
-          Gênero
-          <input type="text" placeholder="digite aqui..">
-        </label>
+                <label>Ano</label>
+                <input id="ano" class="campo" value="2009">
 
-        <div class="col classif-block">
-          <span>Classificação <small>(selecione a classificação indicada)</small></span>
-          <div class="classificacao">
-            <div class="c c-l">L</div>
-            <div class="c c-10">10</div>
-            <div class="c c-12">12</div>
-            <div class="c c-14">14</div>
-          </div>
+                <label>Descrição</label>
+                <textarea id="descricao" class="campo textarea">
+Tiana (Anika Noni Rose) é uma bela jovem que vive em Nova Orleans. Desde criança ela sonha em ter um restaurante próprio.
+                </textarea>
+
+                <label>Gênero</label>
+                <input id="genero" class="campo" value="Comédia Romântica • Musical">
+
+                <label>URL capa do filme</label>
+                <input id="url" class="campo" value="https://disney.images.edge.bamgrid.com/ripcut-delivery">
+
+               
+                <div class="classificacao-container">
+                    <p>Classificação</p>
+                    <div class="class-list">
+                        <div class="class-item l">L</div>
+                        <div class="class-item dez">10</div>
+                        <div class="class-item doze">12</div>
+                        <div class="class-item quatorze">14</div>
+                    </div>
+                </div>
+
+                <label>Anexar filme</label>
+                <input id="anexo" class="campo" value="A Princesa e o Sapo">
+
+                <div class="botoes">
+                    <button class="btn excluir">Excluir Filme</button>
+                    <button class="btn cancelar">Cancelar</button>
+                    <button class="btn salvar">Salvar Alterações</button>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <!-- URL da capa -->
-      <label>
-        URL capa do filme
-        <input type="url" placeholder="insira aqui">
-      </label>
-
-      <!-- Upload -->
-      <div class="upload-block">
-        <span>Anexar filme</span><br>
-        <input type="file">
-      </div>
-
-      <!-- Botões -->
-      <div class="actions">
-        <button type="button" class="btn cancelar">Cancelar</button>
-        <button type="submit" class="btn cadastrar">Cadastrar</button>
-      </div>
-
-    </form>
-  </main>
+    <script src="/javascript/cadastroFilme.js"></script>
 </body>
 </html>
