@@ -3,67 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineKids - Editar Filme</title>
+    <title>Cadastrar Filme</title>
     <link rel="stylesheet" href="/css/cadastroFilme.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container">
+    <div class="card">
 
-        <h2 class="titulo">Editar filme</h2>
+        <h2>Cadastrar Filme</h2>
 
-        <div class="form-grid">
+        <form id="formFilme">
 
-          
-            <div class="capa-area">
-                <img src="https://disney.images.edge.bamgrid.com/ripcut-delivery/v1/variant/disney/A12A7D12E07F36E3A7A3E97F6ABF41D9E8CBA8B4/scale?width=600&aspectRatio=1.78&format=jpeg" class="capa">
+            <label>Nome</label>
+            <input type="text" id="nome" required>
+
+            <label>Ano</label>
+            <input type="number" id="ano" required>
+
+            <label>Descrição</label>
+            <textarea id="descricao" rows="4" required></textarea>
+
+            <label>Gênero</label>
+            <input type="text" id="genero" required>
+
+            <label>URL capa do filme</label>
+            <input type="url" id="url" required>
+
+            <label>Classificação</label>
+            <div class="classificacao-box">
+                <span class="badge livre" data-value="L">L</span>
+                <span class="badge dez" data-value="10">10</span>
+                <span class="badge doze" data-value="12">12</span>
+                <span class="badge quatorze" data-value="14">14</span>
+            </div>
+            <input type="hidden" id="classificacao">
+
+            <div class="btn-area">
+                <button type="button" class="cancelar">Cancelar</button>
+                <button type="submit" class="salvar">Cadastrar Filme</button>
             </div>
 
-          
-            <div class="form">
+        </form>
 
-                <label>Nome</label>
-                <input id="nome" class="campo" value="A Princesa e o Sapo">
+        <p id="mensagem"></p>
 
-                <label>Ano</label>
-                <input id="ano" class="campo" value="2009">
-
-                <label>Descrição</label>
-                <textarea id="descricao" class="campo textarea">
-Tiana (Anika Noni Rose) é uma bela jovem que vive em Nova Orleans. Desde criança ela sonha em ter um restaurante próprio.
-                </textarea>
-
-                <label>Gênero</label>
-                <input id="genero" class="campo" value="Comédia Romântica • Musical">
-
-                <label>URL capa do filme</label>
-                <input id="url" class="campo" value="https://disney.images.edge.bamgrid.com/ripcut-delivery">
-
-               
-                <div class="classificacao-container">
-                    <p>Classificação</p>
-                    <div class="class-list">
-                        <div class="class-item l">L</div>
-                        <div class="class-item dez">10</div>
-                        <div class="class-item doze">12</div>
-                        <div class="class-item quatorze">14</div>
-                    </div>
-                </div>
-
-                <label>Anexar filme</label>
-                <input id="anexo" class="campo" value="A Princesa e o Sapo">
-
-                <div class="botoes">
-                    <button class="btn excluir">Excluir Filme</button>
-                    <button class="btn cancelar">Cancelar</button>
-                    <button class="btn salvar">Salvar Alterações</button>
-                </div>
-            </div>
-        </div>
     </div>
 
-    <script src="/javascript/cadastroFilme.js"></script>
+<script src="/javascript/cadastroFilme.js"></script>
 </body>
 </html>
