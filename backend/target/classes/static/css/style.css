@@ -1,5 +1,274 @@
+:root{
+  --baby-blue:#aee3ff;
+  --baby-pink:#ffb7d5;
+  --baby-yellow:#fff4a9;
+  --baby-green:#c8ffd0;
+  --baby-purple:#e1c6ff;
+
+  --white:#ffffff;
+  --gray:#3a3a3a;
+  --soft-dark:#202020;
+
+  /* MODO CLARO */
+  --bg: #ffffff;
+  --bg2:#f5f7fa;
+  --text: #333;
+  --card:#ffffff;
+  --shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* MODO ESCURO */
+.dark{
+  --bg:#0f1115;
+  --bg2:#1a1c22;
+  --text:#ececec;
+  --card:#1d1f27;
+  --shadow:0 4px 16px rgba(0,0,0,0.6);
+}
+
+/* BASE */
+body{
+  margin:0;
+  font-family: "Baloo 2", system-ui, Arial;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.3s;
+}
+
+header{
+  background:var(--card);
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:var(--shadow);
+  position:sticky;
+  top:0;
+  z-index:50;
+  transition:0.3s;
+
+}
 
 
+
+/* LOGO */
+.logo{
+ width:55px;height:55px;
+  border-radius:60%;
+  background:url('https://images.sympla.com.br/64753c28005fa.jpg') center/cover;
+  box-shadow: blueviolet;
+  cursor:pointer;
+  border:2px solid var(--baby-purple);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+/* PERFIL */
+.profile-circle{
+  width:45px;height:45px;
+  border-radius:50%;
+  background:url('https://static.vecteezy.com/ti/vetor-gratis/p1/9952572-foto-de-perfil-masculino-vetor.jpg') center/cover;
+  box-shadow:var(--shadow);
+  cursor:pointer;
+  border:2px solid var(--baby-purple);
+  transition:0.3s;
+}
+
+.profile-circle:hover{
+  transform:scale(1.1);
+}
+
+/* BOTÃO DO TEMA */
+.theme-btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:none;
+  background:var(--baby-yellow);
+  cursor:pointer;
+  font-weight:bold;
+  margin-right:10px;
+  transition:0.3s;
+}
+
+.theme-btn:hover{
+  transform:scale(1.05);
+  background:var(--baby-green);
+}
+
+/* BOTÕES */
+.btn{
+    text-align: center;
+  padding:10px 18px;
+  border:none;
+  background:var(--baby-blue);
+  border-radius:14px;
+  cursor:pointer;
+  transition:0.3s;
+  font-size:15px;
+  font-weight:600;
+}
+
+.btn.primary{
+  background:var(--baby-purple);
+  color:#fff;
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+/* SEÇÕES */
+section{
+  padding:30px;
+  display:none;
+}
+
+#homeSection{display:block}
+
+
+.carousel{
+  width:100%;
+  height:250px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  margin-bottom:20px;
+
+}
+
+.carousel-track{
+  display:flex;
+  transition:0.6s;
+}
+
+.carousel-track img{
+  width:100%;
+  height:250px;
+  object-fit:cover;
+  border-radius:30px;
+  padding: 15px;
+  
+}
+
+/* GRID/CARDS */
+.grid{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  cursor:pointer;
+  transition:0.3s;
+  border-radius: 15px;
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+}
+
+.card-info{
+  padding:12px;
+  font-size:14px;
+  font-weight:600;
+}
+
+/* FORMÚLARIO */
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  border:none;
+  background:var(--bg2);
+  border-radius:15px;
+  box-shadow:var(--shadow) inset;
+  margin-top:6px;
+  transition:0.3s;
+  color:var(--text);
+}
+
+.form-row{
+  display:flex;
+  gap:15px;
+}
+
+/* MODAL */
+.modal-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  backdrop-filter:blur(3px);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal{
+  background:var(--card);
+  width:70%;
+  max-width:680px;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+/* MENU DA ABA */
+.menu-tabs{
+  display:flex;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.tab-btn{
+  padding:12px 18px;
+  background:var(--baby-yellow);
+  border-radius:16px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.tab-btn:hover{
+  background:var(--baby-pink);
+  transform:scale(1.05);
+}
+
+.active-tab{
+  background:var(--baby-purple);
+  color:#fff;
+}
+
+.search-actions{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 660px;
+    padding: 15px 30px;
+}
+
+#searchBox{
+    width: 650px;
+}
+
+#searchBox input{
+    width: 100%;
+}
 
 
 
