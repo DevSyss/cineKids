@@ -1,2 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
 
+body {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    padding: 40px 10px;
+}
+
+.container {
+    background: #fff;
+    width: 900px;
+    padding: 25px;
+    border-radius: 14px;
+}
+
+.titulo {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 25px;
+}
+
+.capa {
+    width: 100%;
+    border-radius: 12px;
+}
+
+label {
+    font-size: 14px;
+    margin-top: 12px;
+    font-weight: 500;
+    display: block;
+}
+
+.campo {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 10px;
+    border: none;
+    background: #dff2fd;
+    outline: none;
+    font-size: 14px;
+}
+
+.textarea {
+    height: 80px;
+    resize: none;
+}
+
+.classificacao-container {
+    margin-top: 15px;
+}
+
+.class-list {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.class-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+    user-select: none;
+}
+
+.class-item.l { background: #2ecc71; }
+.class-item.dez { background: #3498db; }
+.class-item.doze { background: #f1c40f; color: #000; }
+.class-item.quatorze { background: #e67e22; }
+
+.class-item.ativo {
+    outline: 3px solid #000;
+}
+
+.botoes {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn.excluir { background: #e74c3c; }
+.btn.cancelar { background: #bdc3c7; color: #000; }
+.btn.salvar { background: #2ecc71; }
 
