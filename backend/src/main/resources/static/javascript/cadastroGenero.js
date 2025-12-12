@@ -5,7 +5,7 @@ document.getElementById("formGenero").addEventListener("submit", function(e) {
     const nomeInput = document.getElementById("nomeGenero").value; // Captura o valor digitado no input
 
     // Inicia a requisição para o Backend
-    fetch("http://localhost:8080/api/generos", {
+    fetch("http://localhost:8080/generos", {
         method: "POST", // Define o método HTTP para CRIAR um novo recurso
         headers: { "Content-Type": "application/json" }, // Avisa o servidor que estamos enviando dados em JSON
         
@@ -17,3 +17,4 @@ document.getElementById("formGenero").addEventListener("submit", function(e) {
         window.location.href = "cadastroGenero.html"; // Redireciona para a tela de listagem
     }).catch(err => alert("Erro ao salvar gênero")); // Tratamento de erro caso a API falhe
 });
+
