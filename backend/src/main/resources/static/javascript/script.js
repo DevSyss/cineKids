@@ -1,46 +1,64 @@
-function openTab(id){
-    document.querySelectorAll("section").forEach(s => s.style.display = "none");
-    document.getElementById(id).style.display = "block";
-}
+const API_URL = "http://localhost:8080/filmes"; // Endpoint base da API
 
-const API_URL = "http://localhost:8080/filmes";
-
-// Carrega lista ao abrir página
+// Executa 'listarFilmes' assim que o HTML da página terminar de carregar
 document.addEventListener("DOMContentLoaded", listarFilmes);
 
 function listarFilmes() {
-    fetch(API_URL)
-    .then(res => res.json())
-    .then(filmes => {
+    fetch(API_URL) // Faz requisição GET para buscar os dados
+        .then(res => res.json()) // Converte a resposta para JSON
+        .then(filmes => {
+            const lista = document.getElementById("listaFilmes");
+            lista.innerHTML = ""; // Limpa a lista atual para evitar duplicação
 
-        const lista = document.getElementById("myMoviesGrid");
-        lista.innerHTML = "";
+            // --- Lógica de Filtro ---
+            const paramsUrl = new URLSearchParams(window.location.search);
+            const idGenero = paramsUrl.get("idGenero"); // Captura idGenero da URL (ex: ?idGenero=1)
 
-        const params = new URLSearchParams(window.location.search);
-        const idGenero = params.get("idGenero");
+            if (idGenero) {
+                // Filtra localmente os filmes pelo ID do gênero (caso backend retorne tudo)
+                filmes = filmes.filter(f => f.genero && f.genero.id == idGenero);
+            }
 
-        if (idGenero) {
-            filmes = filmes.filter(f => f.genero && f.genero.id == idGenero);
-        }
+            // Exibe mensagem caso não existam filmes na lista
+            if (filmes.length === 0) {
+                lista.innerHTML += `<p style="grid-column: 1/-1; text-align: center; color: #666;">Nenhum filme encontrado.</p>`;
+                return;
+            }
 
-        if (filmes.length === 0) {
-            lista.innerHTML = `
-                <p style="grid-column: 1/-1; text-align: center; color:#666;">
-                    Nenhum filme encontrado.
-                </p>`;
-            return;
+            // --- Renderização ---
+            let html = "";
+            filmes.forEach(f => {
+                html += `
+                  <div class="filme-card">
+                    <div class="acoes-filme">
+                      <button class="btn-editar" onclick="editarFilme(${f.id})">✏️</button>
+                      <button class="btn-excluir" onclick="excluirFilme(${f.id})">🗑️</button>
+                    </div>
 
-    };
-  
+                    <img src="${f.urlCapa}" alt="${f.titulo}" onerror="this.src='https://via.placeholder.com/300x450?text=Sem+Capa'">
+                    <strong>${f.titulo}</strong><br>
+                    <em>${f.genero ? f.genero.nome : "Sem Gênero"}</em><br>
+                    (${f.ano || ""}) - ${f.diretor || ""}
+                  </div>
+                `;
+            });
 
-function editarFilme(id){
-    window.location.href = `html/cadastroFilme.html?id=${id}`;
+            lista.innerHTML += html; // Insere todos os cards no DOM
+        });
 }
 
-function excluirFilme(id){
-    fetch(`${API_URL}/${id}`, { method: "DELETE" })
-    .then(() => listarFilmes())
-    .catch(() => alert("Erro ao excluir"));
+function editarFilme(id) {
+    // Redireciona para página de cadastro enviando o ID na URL para edição
+    window.location.href = `cadastrofilme.html?id=${id}`;
+}
+
+function excluirFilme(id) {
+    // Solicita confirmação do usuário antes de apagar
+    if (!confirm("Tem certeza que deseja remover este filme?")) return;
+
+    fetch(`${API_URL}/${id}`, { method: "DELETE" }) // Requisição DELETE para remover o registro
+        .then(() => listarFilmes()) // Recarrega a lista para atualizar a tela
+        .catch(err => alert("Erro ao excluir"));
 }
 
 
@@ -119,5 +137,4 @@ themeBtn.addEventListener("click",()=>{
     themeBtn.innerText="Responsvel";
   }else{
     themeBtn.innerText="Kids";
-  }
-};
+  }});
