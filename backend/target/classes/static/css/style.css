@@ -112,7 +112,11 @@ header{
   font-weight:600;
 }
 
-.btn.primary{
+.btn.primary, .btn.secund{
+  
+  padding: 15px 20px;
+  text-align:center;
+  justify-content: flex-start;
   background:var(--baby-purple);
   color:#fff;
 }
@@ -258,12 +262,12 @@ input,textarea,select{
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 660px;
-    padding: 15px 30px;
+    gap:  50px;
+    padding: 15px 40px;
 }
 
 #searchBox{
-    width: 650px;
+    width: 800px;
 }
 
 #searchBox input{

@@ -1,69 +1,96 @@
 body {
-    font-family: 'Comic Sans MS', sans-serif;
-    background: #ffeded;
-background: radial-gradient(circle, rgba(255, 237, 237, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    font-family: "Poppins", sans-serif;
+    background: #e0e0e0;
     margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 90%;
-    max-width: 500px;
-    margin: 30px auto;
-    background: #ffffffcc;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-}
-
-h1, h2 {
-    text-align: center;
-    color: lightpink;
-}
-
-form label {
-    font-weight: bold;
-    color: #333;
-}
-
-form input, form select {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0 16px;
-    border: 2px solid lightpink;
-    border-radius: 10px;
-    font-size: 16px;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background: lightpink;
-    border: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-button:hover {
-    background: lightpink;
 }
 
 .card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 15px;
-    margin-top: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: white;
+    width: 60%;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px #00000030;
 }
 
-.card img {
+h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 500;
+}
+
+input, textarea {
     width: 100%;
-    border-radius: 10px;
+    padding: 12px;
+    margin: 6px 0 18px;
+    border-radius: 12px;
+    border: 1px solid #bcd9ff;
+    background: #eef6ff;
+    font-size: 15px;
 }
 
-.card h3 {
-    color: lightpink;
+/* CLASSIFICAÇÃO */
+.classificacao-box {
+    display: flex;
+    gap: 12px;
+    margin: 10px 0 20px;
+}
+
+.badge {
+    padding: 10px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+}
+
+.livre { background: #2ecc71; }
+.dez { background: #3498db; }
+.doze { background: #f1c40f; color: #000; }
+.quatorze { background: #e67e22; }
+
+/* selecionado */
+.badge.active {
+    outline: 3px solid #00000060;
+}
+
+/* BOTÕES */
+.btn-area {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cancelar {
+    background: #bfbfbf;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.salvar {
+    background: #2ecc71;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    color: white;
+}
+
+.salvar:hover {
+    background: #28b765;
+}
+
+#mensagem {
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 600;
 }

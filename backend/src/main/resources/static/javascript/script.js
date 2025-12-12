@@ -3,7 +3,7 @@ function openTab(id){
     document.getElementById(id).style.display = "block";
 }
 
-const API_URL = "http://localhost:8080/api/filmes";
+const API_URL = "http://localhost:8080/filmes";
 
 // Carrega lista ao abrir página
 document.addEventListener("DOMContentLoaded", listarFilmes);
@@ -29,29 +29,9 @@ function listarFilmes() {
                     Nenhum filme encontrado.
                 </p>`;
             return;
-        }
 
-        filmes.forEach(f => {
-            lista.innerHTML += `
-                <div class="card">
-                    <div class="acoes-filme">
-                        <button class="btn-editar" onclick="editarFilme(${f.id})">✏️</button>
-                        <button class="btn-excluir" onclick="excluirFilme(${f.id})">🗑️</button>
-                    </div>
-
-                    <img src="${f.urlCapa}" alt="${f.titulo}" 
-                         onerror="this.src='https://via.placeholder.com/300x450?text=Sem+Capa'">
-
-                    <div class="card-info">
-                        <strong>${f.titulo}</strong><br>
-                        <em>${f.genero ? f.genero.nome : "Sem Gênero"}</em><br>
-                        ${f.ano ? f.ano : ""} - ${f.diretor ?? ""}
-                    </div>
-                </div>`;
-        });
-    })
-    .catch(err => console.error("Erro ao carregar filmes", err));
-}
+    };
+  
 
 function editarFilme(id){
     window.location.href = `html/cadastroFilme.html?id=${id}`;
@@ -102,7 +82,7 @@ filmForm.addEventListener("submit",(e)=>{
     img:imgUrl.value
   };
 
-  filmes.push(f);
+  filmeS.push(f);
   renderMyMovies();
   alert("Filme cadastrado!");
 });
@@ -140,5 +120,4 @@ themeBtn.addEventListener("click",()=>{
   }else{
     themeBtn.innerText="Kids";
   }
-});
-
+};

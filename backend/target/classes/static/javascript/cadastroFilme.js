@@ -1,3 +1,4 @@
+const API_URL = "http://localhost:8080/api/filmes";
 const badges = document.querySelectorAll(".badge");
 const inputClassificacao = document.getElementById("classificacao");
 
