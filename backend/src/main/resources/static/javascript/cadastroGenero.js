@@ -48,7 +48,7 @@ function prepararModoEdicao(){
 
 async function carregarDadosFilme(id){
     try{
-        const res = await fetch(${API_URL}/${id});
+        const res = await fetch(`${API_URL}/${id}`);
         const filme = await res.json();
 
         document.getElementById("titulo").value = filme.titulo;
