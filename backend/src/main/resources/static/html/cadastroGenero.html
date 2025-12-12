@@ -2,13 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta viewport="width=device-width, initial-scale=1.0">
     <title>Edição de Gênero</title>
 
-    <!-- Fonte Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Conexão com CSS -->
     <link rel="stylesheet" href="/css/cadastroGenero.css">
 </head>
 <body>
@@ -17,31 +14,15 @@
         <h2>Editar Gênero</h2>
 
         <form id="formGenero">
-            <label>Nome</label>
-            <input type="text" id="nome" required>
-
-            <label>Ano</label>
-            <input type="number" id="ano" required>
+            <label>Gênero</label>
+            <input type="text" id="nomeGenero" placeholder="Ex: Ação, Drama..." required>
 
             <label>Descrição</label>
             <textarea id="descricao" rows="4"></textarea>
 
-            <label>Gênero</label>
-            <input type="text" id="genero" placeholder="Ex: Ação, Drama..." required>
-
-            <label>URL da Capa</label>
-            <input type="url" id="url" placeholder="https://exemplo.com/imagem.jpg">
-
-            <label>Classificação</label>
-            <div class="classificacao-box">
-                <span class="badge livre" data-value="Livre">L</span>
-                <span class="badge dez" data-value="10">10</span>
-                <span class="badge doze" data-value="12">12</span>
-                <span class="badge quatorze" data-value="14">14</span>
-            </div>
-
             <div class="btn-area">
                 <button type="reset" class="cancelar">Cancelar</button>
+
                 <button type="submit" class="salvar">Salvar</button>
             </div>
 
@@ -49,7 +30,6 @@
         </form>
     </div>
 
-    <!-- Conexão com JavaScript -->
     <script src="/javascript/cadastroGenero.js"></script>
 
 </body>

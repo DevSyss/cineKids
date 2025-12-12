@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/generos"; // Define o endpoint da API de gêneros
+const API_URL = "http://localhost:8080/generos"; // Define o endpoint da API de gêneros
 
 // Adiciona ouvinte para executar a função assim que o HTML carregar
 document.addEventListener("DOMContentLoaded", listarGeneros);
