@@ -150,4 +150,4 @@ spring.jpa.hibernate.ddl-auto=update
 
 🔗 **Trello:** *"https://trello.com/b/2AJ9CFr8/devsys"*
 
-🔗 **Figma:** *adicionar*
+🔗 **Figma:** *https://www.figma.com/proto/PItA0BWVGAY6haX4GJNXZs/Untitled?node-id=5-368&p=f&t=eRnbr7JDZsRW6Deo-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1*

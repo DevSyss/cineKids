@@ -1,4 +1,42 @@
-<<<<<<< HEAD
+
+const badges = document.querySelectorAll(".badge");
+const inputClassificacao = document.getElementById("classificacao");
+
+badges.forEach(badge => {
+    badge.addEventListener("click", () => {
+        badges.forEach(b => b.classList.remove("active"));
+        badge.classList.add("active");
+        inputClassificacao.value = badge.dataset.value;
+    });
+});
+
+
+document.getElementById("formFilme").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const filme = {
+        nome: document.getElementById("nome").value,
+        ano: document.getElementById("ano").value,
+        descricao: document.getElementById("descricao").value,
+        genero: document.getElementById("genero").value,
+        url: document.getElementById("url").value,
+        classificacao: document.getElementById("classificacao").value
+    };
+
+    if (!filme.classificacao) {
+        alert("Selecione a classificação!");
+        return;
+    }
+
+    let filmes = JSON.parse(localStorage.getItem("filmes")) || [];
+    filmes.push(filme);
+    localStorage.setItem("filmes", JSON.stringify(filmes));
+
+    document.getElementById("mensagem").innerText = "Filme cadastrado com sucesso!";
+    document.getElementById("formFilme").reset();
+    badges.forEach(b => b.classList.remove("active"));
+});
+=======
 const API_URL = "http://localhost:8080/filmes";
 const GENRES_URL = "http://localhost:8080/generos";
 
@@ -64,7 +102,7 @@ async function carregarDadosFilme(id) {
         }
     } catch (error) {
         alert("Erro ao buscar dados do filme: " + error);
-        window.location.href = "../index.html"; // Volta para listagem em caso de erro (ex: ID inválido)
+        window.location.href = "filmes.html"; // Volta para listagem em caso de erro (ex: ID inválido)
     }
 }
 
@@ -73,12 +111,11 @@ function salvarFilme(event) {
 
     // Monta o objeto JSON. Nota: 'genero' é enviado como objeto { id: ... } 
     // para que o JPA no backend faça a associação correta.
-    // beckend roxo 
     const filme = {
-        titulo: document.getElementById("nome").value,
+        titulo: document.getElementById("titulo").value,
         ano: document.getElementById("ano").value,
         diretor: document.getElementById("descricao").value,
-        urlCapa: document.getElementById("url").value,
+        urlCapa: document.getElementById("urlCapa").value,
         genero: { id: document.getElementById("selectGenero").value }
     };
 
@@ -95,46 +132,8 @@ function salvarFilme(event) {
     })
     .then(() => {
         alert(idEdicao ? "Filme atualizado com sucesso!" : "Filme cadastrado com sucesso!");
-        window.location.href = "../index.html"; // Redireciona para a lista
+        window.location.href = "filmes.html"; // Redireciona para a lista
     })
     .catch(err => alert("Erro ao salvar: " + err));
 }
-=======
-const badges = document.querySelectorAll(".badge");
-const inputClassificacao = document.getElementById("classificacao");
-
-badges.forEach(badge => {
-    badge.addEventListener("click", () => {
-        badges.forEach(b => b.classList.remove("active"));
-        badge.classList.add("active");
-        inputClassificacao.value = badge.dataset.value;
-    });
-});
-
-
-document.getElementById("formFilme").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const filme = {
-        nome: document.getElementById("nome").value,
-        ano: document.getElementById("ano").value,
-        descricao: document.getElementById("descricao").value,
-        genero: document.getElementById("genero").value,
-        url: document.getElementById("url").value,
-        classificacao: document.getElementById("classificacao").value
-    };
-
-    if (!filme.classificacao) {
-        alert("Selecione a classificação!");
-        return;
-    }
-
-    let filmes = JSON.parse(localStorage.getItem("filmes")) || [];
-    filmes.push(filme);
-    localStorage.setItem("filmes", JSON.stringify(filmes));
-
-    document.getElementById("mensagem").innerText = "Filme cadastrado com sucesso!";
-    document.getElementById("formFilme").reset();
-    badges.forEach(b => b.classList.remove("active"));
-});
->>>>>>> 64807f0dbd5a25f0943eec7e30218f20bacf173f
+>>>>>>> b1692ea1e8f815efbdc184e336acb5f720f2f29c
