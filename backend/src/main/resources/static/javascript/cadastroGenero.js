@@ -1,27 +1,19 @@
+// Seleciona o formulário pelo ID e "escuta" o evento de envio (submit)
 document.getElementById("formGenero").addEventListener("submit", function(e) {
-    e.preventDefault();
+    e.preventDefault(); // Bloqueia o recarregamento automático da página (comportamento padrão do form)
 
-    const nome = document.getElementById("nome").value;
-    const genero = document.getElementById("genero").value;
-    const url = document.getElementById("urlCapa").value;
-    const ano = document.getElementById("ano").value;
-    const diretor = document.getElementById("diretor").value;
+    const nomeInput = document.getElementById("nomeGenero").value; // Captura o valor digitado no input
 
-    const lista = document.getElementById("lista");
-
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    card.innerHTML = `
-        <img src="${url}" alt="Capa do filme">
-        <h3>${nome}</h3>
-        <p><strong>Gênero:</strong> ${genero}</p>
-        <p><strong>Ano:</strong> ${ano}</p>
-        <p><strong>Diretor:</strong> ${diretor}</p>
-    `;
-
-    lista.appendChild(card);
-
-    // Limpando formulário
-    document.getElementById("formGenero").reset();
+    // Inicia a requisição para o Backend
+    fetch("http://localhost:8080/api/generos", {
+        method: "POST", // Define o método HTTP para CRIAR um novo recurso
+        headers: { "Content-Type": "application/json" }, // Avisa o servidor que estamos enviando dados em JSON
+        
+        // Corpo da requisição: Converte o objeto JS em string JSON para envio
+        // Ex: { nome: "Drama" } vira '{"nome": "Drama"}'
+        body: JSON.stringify({ nome: nomeInput })
+    }).then(() => {
+        alert("Gênero salvo!"); // Feedback de sucesso
+        window.location.href = "cadastroGenero.html"; // Redireciona para a tela de listagem
+    }).catch(err => alert("Erro ao salvar gênero")); // Tratamento de erro caso a API falhe
 });

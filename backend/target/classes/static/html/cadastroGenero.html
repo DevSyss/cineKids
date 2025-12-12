@@ -3,50 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novo Filme</title>
+    <title>Edição de Gênero</title>
+
+    <!-- Fonte Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Conexão com CSS -->
     <link rel="stylesheet" href="/css/cadastroGenero.css">
 </head>
 <body>
 
-    <div class="container">
-        <div class="card">
-            <h2>Cadastro Gênero</h2>
+    <div class="card">
+        <h2>Editar Gênero</h2>
 
-            <form>
-                <label>Nome</label>
-                <input type="text">
+        <form id="formGenero">
+            <label>Nome</label>
+            <input type="text" id="nome" required>
 
-                <label>Gênero</label>
-                <select>
-                    <option value="">Selecione</option>
-                    <option>Ação</option>
-                    <option>Comédia</option>
-                    <option>Drama</option>
-                    <option>Terror</option>
-                    <option>Ficção Científica</option>
-                    <option>Romance</option>
-                    <option>Aventura</option>
-                </select>
+            <label>Ano</label>
+            <input type="number" id="ano" required>
 
-                <div class="row">
-                    <div class="col">
-                        <label>Ano</label>
-                        <input type="number">
-                    </div>
+            <label>Descrição</label>
+            <textarea id="descricao" rows="4"></textarea>
 
-                    <div class="col">
-                        <label>Diretor</label>
-                        <input type="text">
-                    </div>
-                </div>
+            <label>Gênero</label>
+            <input type="text" id="genero" placeholder="Ex: Ação, Drama..." required>
 
-                <label>URL da Capa</label>
-                <input type="text">
+            <label>URL da Capa</label>
+            <input type="url" id="url" placeholder="https://exemplo.com/imagem.jpg">
 
-                <button type="submit">Salvar Gênero</button>
-            </form>
-        </div>
+            <label>Classificação</label>
+            <div class="classificacao-box">
+                <span class="badge livre" data-value="Livre">L</span>
+                <span class="badge dez" data-value="10">10</span>
+                <span class="badge doze" data-value="12">12</span>
+                <span class="badge quatorze" data-value="14">14</span>
+            </div>
+
+            <div class="btn-area">
+                <button type="reset" class="cancelar">Cancelar</button>
+                <button type="submit" class="salvar">Salvar</button>
+            </div>
+
+            <p id="mensagem"></p>
+        </form>
     </div>
+
+    <!-- Conexão com JavaScript -->
     <script src="/javascript/cadastroGenero.js"></script>
+
 </body>
 </html>
