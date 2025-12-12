@@ -63,7 +63,7 @@ async function carregarDadosFilme(id) {
         }
     } catch (error) {
         alert("Erro ao buscar dados do filme: " + error);
-        window.location.href = "filmes.html"; // Volta para listagem em caso de erro (ex: ID inválido)
+        window.location.href = "../index.html"; // Volta para listagem em caso de erro (ex: ID inválido)
     }
 }
 
@@ -72,11 +72,12 @@ function salvarFilme(event) {
 
     // Monta o objeto JSON. Nota: 'genero' é enviado como objeto { id: ... } 
     // para que o JPA no backend faça a associação correta.
+    // beckend roxo 
     const filme = {
-        titulo: document.getElementById("titulo").value,
+        titulo: document.getElementById("nome").value,
         ano: document.getElementById("ano").value,
         diretor: document.getElementById("descricao").value,
-        urlCapa: document.getElementById("urlCapa").value,
+        urlCapa: document.getElementById("url").value,
         genero: { id: document.getElementById("selectGenero").value }
     };
 
@@ -93,7 +94,7 @@ function salvarFilme(event) {
     })
     .then(() => {
         alert(idEdicao ? "Filme atualizado com sucesso!" : "Filme cadastrado com sucesso!");
-        window.location.href = "filmes.html"; // Redireciona para a lista
+        window.location.href = "../index.html"; // Redireciona para a lista
     })
     .catch(err => alert("Erro ao salvar: " + err));
 }

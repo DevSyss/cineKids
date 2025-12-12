@@ -1,101 +1,84 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CineKids — Plataforma Infantil</title>
-<link rel="stylesheet" href="css/style.css">
- <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineKids — Plataforma Infantil</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<header>
-  <div class="brand">
-    <div class="logo"></div>
-    <h2>CineKids - DevSys</h2>
-  </div>
-
-  <div>
-  <nav style="padding:15px; display: inline; text-align: left;" >
-  <button class="btn" onclick="openTab('homeSection')">Home Page</button>
-  <button class="btn" onclick="openTab('genresSection')">Gêneros</button>
-   <button class="btn" onclick="openTab('adminSection')">Meus Filmes</button>
-</div>
-  <div style="display:flex;align-items:center;gap:12px">
-    <button class="theme-btn" id="themeBtn">Kids</button>
-    <div class="profile-circle"></div>
-  </div>
-
-</header>
-
-
-<div class="search-actions">
-    <div id="searchBox">
-        <input type="text" id="searchInput" placeholder="Buscar Filme Por ID..." oninput="searchMovie()">
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <h2>CineKids - DevSys</h2>
     </div>
 
-      <a href="html/cadastroFilme.html"><button class="btn primary" onclick="openTab('myMoviesSection')" >
+    <div>
+      <nav style="padding:15px; display: inline; text-align: left;">
+        <button class="btn" onclick="openTab('homeSection')">Home Page</button>
+        <button class="btn" onclick="openTab('genresSection')">Gêneros</button>
+        <button class="btn" onclick="openTab('adminSection')">Meus Filmes</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="theme-btn" id="themeBtn">Kids</button>
+      <div class="profile-circle"></div>
+    </div>
+
+  </header>
+
+
+  <div class="search-actions">
+    <div id="searchBox">
+      <input type="text" id="searchInput" placeholder="Buscar Filme Por ID..." oninput="searchMovie()">
+    </div>
+
+    <a href="html/cadastroFilme.html"><button class="btn primary">
         Cadastrar Filme +
       </button></a>
-        
-      
-    <a href="html/cadastroGenero.html"><button  class="btn secund" onclick="openTab('myMoviesSection')">
+
+
+    <a href="html/cadastroGenero.html"><button class="btn secund">
         Cadastrar Gênero +
-    </button></a>
-</div>
+      </button></a>
+  </div>
 
 
-<!-- HOMEPAGE -->
-<section id="homeSection">
-  <h2>Destaques</h2>
+  <!-- HOMEPAGE -->
+  <section id="homeSection">
+    <h2>Destaques</h2>
 
-  <div class="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <img src="https://happykids.pt/wp-content/uploads/2024/12/maxresdefault-1024x576.jpg">
-      <img src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/10/madagascar.jpeg?w=849&h=477&crop=0">
-      <img src="https://static.wixstatic.com/media/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg/v1/fill/w_800,h_451,al_c,q_85,enc_avif,quality_auto/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg">
-       <img src="https://www.guiadasemana.com.br/contentFiles/system/pictures/2015/9/144142/cropped/divertida.jpg">
-       <img src="https://cinema10.com.br/upload/noticias/2019-2/2192602189.jpg">
-       <img src=" https://muralzinhodeideias.com.br/wp-content/uploads/2020/01/scooby-filme-divulgacao.jpg">
-      <img src="https://static.wixstatic.com/media/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg/v1/fill/w_980,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg">
+    <div class="carousel">
+      <div class="carousel-track" id="carouselTrack">
+        <img src="https://happykids.pt/wp-content/uploads/2024/12/maxresdefault-1024x576.jpg">
+        <img
+          src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2023/10/madagascar.jpeg?w=849&h=477&crop=0">
+        <img
+          src="https://static.wixstatic.com/media/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg/v1/fill/w_800,h_451,al_c,q_85,enc_avif,quality_auto/1da4f0_ef9db96f19bb42d98884c82d49657ed4~mv2.jpg">
+        <img src="https://www.guiadasemana.com.br/contentFiles/system/pictures/2015/9/144142/cropped/divertida.jpg">
+        <img src="https://cinema10.com.br/upload/noticias/2019-2/2192602189.jpg">
+        <img src=" https://muralzinhodeideias.com.br/wp-content/uploads/2020/01/scooby-filme-divulgacao.jpg">
+        <img
+          src="https://static.wixstatic.com/media/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg/v1/fill/w_980,h_588,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/1da4f0_049c47085bd14aa4b9fc93c889100f67~mv2.jpg">
+      </div>
     </div>
-  </div>
 
-  <h2>Filmes Cadastrados</h2>
-  <div class="grid" id="recommendedGrid"></div>
-</section>
-
-<!--GÊNEROS-->
-
-<section id="genresSection">
-  <h2>Gêneros Cadastrados</h2>
-
-  <p style="color:gray">Futuramente integrará com o MySQL.</p>
-</section>
-
-<!--ADMIN-->
-  <form id="filmForm">
-
-</section>
-
-<!--FILMES CADASTRADOS  -->
-<section id="myMoviesSection">
-  <h2>Filmes Cadastrados</h2>
-  <div class="grid" id="myMoviesGrid"></div>
-</section>
-
-<!-- MODAL -->
-<div class="filme-card">
-  <div class="modal">
-    <h2 id="detailTitle"></h2>
-    <p id="detailDesc"></p>
-    <button class="btn" onclick="closeModal()">Fechar</button>
-  </div>
-</div>
-
-<script src="javascript/script.js"></script>
+    <h2>Filmes Cadastrados</h2>
+    <section id="secaoFilmes">
+      <h2>Filmes Cadastrados</h2>
+      <div class="grid" id="gridFilmes"></div>
+      <div class="grid" id="recommendedGrid"></div>
+    </section>
 
 
+    <script src="javascript/script.js"></script>
+    <!-- <script>listarFilmes()</script> -->
+
+    <script>listar()</script>
 </body>
+
 </html>

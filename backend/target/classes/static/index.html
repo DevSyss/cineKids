@@ -35,12 +35,12 @@
         <input type="text" id="searchInput" placeholder="Buscar Filme Por ID..." oninput="searchMovie()">
     </div>
 
-      <a href="html/cadastroFilme.html"><button class="btn primary" onclick="openTab('myMoviesSection')" >
+      <a href="html/cadastroFilme.html"><button class="btn primary" >
         Cadastrar Filme +
       </button></a>
         
       
-    <a href="html/cadastroGenero.html"><button  class="btn secund" onclick="openTab('myMoviesSection')">
+    <a href="html/cadastroGenero.html"><button  class="btn secund">
         Cadastrar Gênero +
     </button></a>
 </div>
@@ -80,9 +80,9 @@
 </section>
 
 <!--FILMES CADASTRADOS  -->
-<section id="myMoviesSection">
+<section id="secaoFilmes">
   <h2>Filmes Cadastrados</h2>
-  <div class="grid" id="myMoviesGrid"></div>
+  <div class="grid" id="gridFilmes"></div>
 </section>
 
 <!-- MODAL -->
@@ -95,6 +95,9 @@
 </div>
 
 <script src="javascript/script.js"></script>
+<!-- <script>listarFilmes()</script> -->
+
+<script>listar()</script>
 
 
 </body>

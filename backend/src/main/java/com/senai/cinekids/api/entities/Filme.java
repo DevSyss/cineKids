@@ -49,16 +49,19 @@ public class Filme {
 	@Column(name = "idioma")
 	private String idioma;
 	
+	@Column(name= "url")
+	private String url;
 
 	public Filme() {
 	}
 
-	public Filme(String titulo, String sinopse, String idioma, int anoLancamento, String classificacao, Genero genero) {
+	public Filme(String titulo, String sinopse, String idioma, int anoLancamento, String classificacao, String url, Genero genero) {
 		this.titulo = titulo;
 		this.sinopse = sinopse;
 		this.anoLancamento = anoLancamento;
 		this.classificacao = classificacao;
 		this.idioma = idioma;
+		this.url = url;
 
 	}
 
@@ -117,5 +120,12 @@ public class Filme {
 	public void setIdioma(String idioma) {
 		this.idioma = idioma;
 	}
+
+	public String getUrl() {
+		return url;
 	}
-	
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+}
