@@ -54,28 +54,20 @@ projeto-filmes/
 
 # 🛠️ **Guia de Instalação e Execução**
 
-## **Backend (Spring Boot)**
-
-### **1. Configurar banco no `application.properties`**
-
-```
-spring.application.name=projeto-cine-kids
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-spring.datasource.url=jdbc:mysql://localhost:3306/db_cineKids?useSSL=false
-spring.datasource.username=root
-spring.datasource.password=12345
-
-spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQLDialect
-spring.jpa.defer-datasource-initialization=true
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.hibernate.ddl-auto=update
-
-
+### 1. Banco de Dados
+- Crie o banco de dados  MySQL executando o script SQL:
+``` sql
+CREATE DATABASE db_cineKids;;
 ```
 
-### **2. Rodar o backend**
+### 2. Backend
+- Clonar repositório.
+- Configuere o arquivo application.propriets com suas credenciais do MYSQL.
+- A API rodará em: `http://localhost:8080`
 
+### 3. Frontend
+- Navegue até a pasta do Frontend.
+- Acesse o index.html no navegador.
 ---
 
 # 🌐 **Documentação da API**
