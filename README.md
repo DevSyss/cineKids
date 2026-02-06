@@ -10,11 +10,11 @@ Professor Instrutor: [Vedilson Prado](https://github.com/vedilsonprado)
 
 ---
 # 🧑‍💻 **Desenvolvedores:**
-### Matheus Henrique Magalhaes Rodrigues Dev 12: [Matheus Henrique](https://github.com/magalhaes000)
-### Rhyan Pyetro Alves dos Anjos Dev 24: [Rhyan Pyetro](https://github.com/Rhyanzin01)
-### Thais Gimenez Siva Dev 27: [Thais Gimenez](https://github.com/thaasilvaa)
-### Thayna Visentin Silva 28: [Thayná Visentin](https://github.com/devthaynasilva-star)
-### Vitor Moreira Berganton Dev 32: [Vitor Moreira](https://github.com/devvitorberganton-pixel)
+#### Matheus Henrique Magalhaes Rodrigues Dev 13: [Matheus Henrique](https://github.com/magalhaes000)
+#### Rhyan Pyetro Alves dos Anjos Dev 24: [Rhyan Pyetro](https://github.com/Rhyanzin01)
+#### Thais Gimenez Siva Dev 27: [Thais Gimenez](https://github.com/thaasilvaa)
+#### Thayna Visentin Silva 28: [Thayná Visentin](https://github.com/devthaynasilva-star)
+#### Vitor Moreira Berganton Dev 32: [Vitor Moreira](https://github.com/devvitorberganton-pixel)
 
 ---
 
